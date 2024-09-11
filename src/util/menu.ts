@@ -1,35 +1,35 @@
-import { images } from "./images";
+import { Icons } from "../components/Icons";
 
 export const menu: {
   [key: string]: {
     label: string;
     href: string;
-    icon: string;
+    icon: keyof typeof Icons;
   };
 } = {
   overview: {
     label: "Overview",
     href: "/",
-    icon: images.homeIcon,
+    icon: "home",
   },
   transactions: {
     label: "Transactions",
     href: "/transactions",
-    icon: images.transactionsIcon,
+    icon: "transactions",
   },
   budgets: {
     label: "Budgets",
     href: "/budgets",
-    icon: images.budgetsIcon,
+    icon: "budgets",
   },
   pots: {
     label: "Pots",
     href: "/pots",
-    icon: images.potsIcon,
+    icon: "pots",
   },
   bills: {
     label: "Recurring Bills",
     href: "/bills",
-    icon: images.billsIcon,
+    icon: "bills",
   },
 };
