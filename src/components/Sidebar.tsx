@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { images } from "../util/images";
 import { menu } from "../util/menu";
-import { Icons } from "./Icons";
+import { Icons } from "./ui/Icons";
 
 type Props = {};
 

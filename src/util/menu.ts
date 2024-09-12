@@ -1,4 +1,4 @@
-import { Icons } from "../components/Icons";
+import { Icons } from "../components/ui/Icons";
 
 export const menu: {
   [key: string]: {

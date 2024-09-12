@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="flex h-full">
       <Sidebar />
-      <main className="p-5">
+      <main className="p-5 px-8 flex-1">
         <Routes>
           <Route path="/" element={<Overview />}></Route>
           <Route path="/bills" element={<Bills />}></Route>
