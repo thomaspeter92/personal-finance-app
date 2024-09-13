@@ -3,6 +3,7 @@ import BudgetsOverview from "../components/overview/BudgetsOverview";
 import Card from "../components/overview/Card";
 import PotsOverview from "../components/overview/PotsOverview";
 import TransactionsOverview from "../components/overview/TransactionsOverview";
+import usePotsStore from "../stores/potsStore";
 
 type Props = {};
 
