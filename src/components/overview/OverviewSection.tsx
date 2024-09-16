@@ -15,7 +15,10 @@ const OverviewSection = ({ title, link, children, linkText }: Props) => {
     <section className="rounded-xl bg-white p-5">
       <div className="flex justify-between items-center mb-5">
         <h2 className="font-bold capitalize text-lg">{title}</h2>
-        <Link className="flex items-center gap-2 text-gray-500" to={link}>
+        <Link
+          className="flex items-center gap-2 text-gray-500 hover:text-gray-900 text-sm"
+          to={link}
+        >
           {linkText}
           <CaretRight className="w-1 fill-gray-500" />
         </Link>

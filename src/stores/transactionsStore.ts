@@ -13,7 +13,7 @@ type Categorgy =
   | "Personal Care"
   | "Shopping";
 
-type Transaction = {
+export type Transaction = {
   avatar: string;
   name: string;
   category: Categorgy;

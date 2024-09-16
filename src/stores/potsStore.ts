@@ -2,16 +2,16 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware"; // Optional for persistence
 
 type Pot = {
-  id: number;
   name: string;
-  amount: number;
-  goal: number;
+  target: number;
+  theme: string;
+  total: number;
 };
 
 type PotsState = {
   pots: Pot[];
   setPots: (pots: Pot[]) => void;
-  updatePot: (id: number, updatedPot: Partial<Pot>) => void;
+  // updatePot: (id: number, updatedPot: Partial<Pot>) => void;
 };
 
 const fetchPots = async () => {
@@ -25,13 +25,13 @@ const usePotsStore = create<PotsState>()(
     (set) => ({
       pots: [],
       setPots: (pots) => set({ pots }),
-      updatePot: (id: number, updatedPot: Partial<Pot>) =>
-        set((state) => ({
-          // Find the pot with matching ID and update it, otherwise skip
-          pots: state.pots.map((pot) =>
-            pot.id === id ? { ...pot, ...updatedPot } : pot
-          ),
-        })),
+      // updatePot: (id: number, updatedPot: Partial<Pot>) =>
+      //   set((state) => ({
+      //     // Find the pot with matching ID and update it, otherwise skip
+      //     pots: state.pots.map((pot) =>
+      //       pot.id === id ? { ...pot, ...updatedPot } : pot
+      //     ),
+      //   })),
     }),
     {
       name: "pots-storage", // name in local storage
