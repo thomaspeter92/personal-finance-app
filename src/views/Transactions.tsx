@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import useTransactionsStore from "../stores/transactionsStore";
 import { formatDateString } from "../util/helpers";
 import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import Select from "../components/ui/Select";
 
 const Transactions = () => {
   const { transactions } = useTransactionsStore();
@@ -28,14 +30,22 @@ const Transactions = () => {
     setSlicedTransactions(sliced);
   }, [currentPage]);
 
+  // const handleSearch = () => {
+
+  // }
+
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">Transactions</h1>
       <div className="bg-white rounded-xl p-8">
+        <div className="flex items-center mb-5">
+          {/* <Input icon="search" placeholder="Search transactions..." /> */}
+          <Select />
+        </div>
         <table className=" w-full">
-          <thead>
+          <thead className="hidden lg:table-header-group">
             <tr className="[&>td]:pb-5 border-b border-gray-100 text-sm text-gray-500">
-              <td>Recipiet/Sender</td>
+              <td>Recipient/Sender</td>
               <td>Category</td>
               <td>Transaction Date</td>
               <td>Amount</td>
@@ -49,10 +59,17 @@ const Transactions = () => {
               >
                 <td className="flex gap-5 items-center font-bold text-gray-900">
                   <img src={t.avatar} className="w-10 h-10 rounded-full" />
-                  {t.name}
+                  <p>
+                    {t.name}
+                    <span className="text-sm text-gray-500 font-normal block lg:hidden">
+                      {t.category}
+                    </span>
+                  </p>
                 </td>
-                <td className="text-gray-500 text-sm">{t.category}</td>
-                <td className="text-gray-500 text-sm">
+                <td className="text-gray-500 text-sm hidden lg:table-cell">
+                  {t.category}
+                </td>
+                <td className="text-gray-500 text-sm hidden lg:table-cell">
                   {formatDateString(t.date)}
                 </td>
                 <td
@@ -63,15 +80,39 @@ const Transactions = () => {
                   {t.amount > 0
                     ? `+$${t.amount.toFixed(2)}`
                     : `-$${Math.abs(t.amount).toFixed(2)}`}
+                  <span className="block text-sm text-gray-500 font-normal lg:hidden">
+                    {formatDateString(t.date)}
+                  </span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <div className="flex justify-between">
-          <Button intent="black-outlined">Prev</Button>
-          <div></div>
-          <Button intent="black-outlined">Next</Button>
+        <div className="flex justify-between mt-5">
+          <Button
+            onClick={handlePrevPageChange}
+            iconLeft="caretLeft"
+            intent="black-outlined"
+          >
+            Prev
+          </Button>
+          <div className="flex gap-2">
+            {[...Array(Math.ceil(transactions.length / 10)).keys()].map((d) => (
+              <Button
+                onClick={() => setCurrentPage(d + 1)}
+                intent={currentPage === d + 1 ? "black" : "black-outlined"}
+              >
+                {d + 1}
+              </Button>
+            ))}
+          </div>
+          <Button
+            onClick={handleNextPageChange}
+            iconRight="caretRight"
+            intent="black-outlined"
+          >
+            Next
+          </Button>
         </div>
       </div>
     </div>
