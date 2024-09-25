@@ -18,7 +18,7 @@ const PotsOverview = ({}: Props) => {
           <Icon className="fill-green" />
           <div>
             <p className="text-sm text-gray-500 mb-2">Total Saved</p>
-            <p className="font-bold text-2xl">${totalSaved}</p>
+            <p className="font-bold text-xl">${totalSaved}</p>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 ">
@@ -30,8 +30,8 @@ const PotsOverview = ({}: Props) => {
                 style={{ borderColor: pot.theme }}
                 className={`border-l-4 pl-4 rounded-l`}
               >
-                <p className="text-sm text-gray-500 mb-2">{pot.name}</p>
-                <p className="font-bold text-xl">${pot.total}</p>
+                <p className="text-xs text-gray-500 mb-2">{pot.name}</p>
+                <p className="font-bold text-lg">${pot.total}</p>
               </div>
             );
           })}

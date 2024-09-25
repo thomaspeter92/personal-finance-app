@@ -25,6 +25,9 @@ export type Transaction = {
 type TransactionsState = {
   transactions: Transaction[];
   setTransactions: (transactions: Transaction[]) => void;
+  sortTransactions: (
+    sortBy: "latest" | "oldest" | "highest" | "lowest"
+  ) => void;
 };
 
 const fetchTransactions = async () => {
@@ -35,21 +38,26 @@ const fetchTransactions = async () => {
 
 const useTransactionsStore = create<TransactionsState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       transactions: [],
       setTransactions: (transactions) => set({ transactions }),
-      //   updateTransaction: (
-      //     id: number,
-      //     updatedTransaction: Partial<Transaction>
-      //   ) =>
-      //     set((state) => ({
-      //       // Find the transaction with matching ID and update it, otherwise skip
-      //       transactions: state.transactions.map((transaction) =>
-      //         transaction === id
-      //           ? { ...transaction, ...updatedTransaction }
-      //           : transaction
-      //       ),
-      //     })),
+      sortTransactions: (sortBy) => {
+        const sortedTransactions = [...get().transactions].sort((a, b) => {
+          switch (sortBy) {
+            case "latest":
+              return new Date(b.date).getTime() - new Date(a.date).getTime();
+            case "oldest":
+              return new Date(a.date).getTime() - new Date(b.date).getTime();
+            case "highest":
+              return b.amount - a.amount;
+            case "lowest":
+              return a.amount - b.amount;
+            default:
+              return 0;
+          }
+        });
+        set({ transactions: sortedTransactions });
+      },
     }),
     {
       name: "transactions-storage", // name in local storage

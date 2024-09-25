@@ -19,29 +19,44 @@ type BudgetsState = {
 };
 
 const fetchBudgets = async () => {
-  return fetch("/data.json")
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+  try {
+    const data = await fetch("/data.json").then((res) => res.json());
+
+    const updatedBudgets = calculateCurrentSpend(
+      data.budgets as Budget[],
+      data.transactions as Transaction[]
+    );
+
+    return { ...data, budgets: updatedBudgets };
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 };
 
 const calculateCurrentSpend = (
   budgets: Budget[],
   transactions: Transaction[]
-) => {
-  const budgetObj: any = {};
+): Budget[] => {
+  const budgetObj: { [key: string]: number } = {};
+
+  // Initialize currentSpend to 0 for each budget
   budgets.forEach((b) => {
     budgetObj[b.category] = 0;
   });
-  const totalSpent = transactions.reduce(
-    (acc, curr) => (curr.category in budgetObj ? (acc += curr.amount) : acc),
-    0
-  );
+
+  // Calculate the current spend for each category
   transactions.forEach((t) => {
     if (t.category in budgetObj) {
-      budgetObj[t.category] += t.amount;
+      budgetObj[t.category] += Math.abs(t.amount);
     }
   });
-  return Math.abs(totalSpent);
+
+  // Update each budget with the calculated currentSpend
+  return budgets.map((budget) => ({
+    ...budget,
+    currentSpend: budgetObj[budget.category] || 0,
+  }));
 };
 
 const useBudgetsStore = create<BudgetsState>()(
@@ -63,7 +78,10 @@ const useBudgetsStore = create<BudgetsState>()(
 
             state?.setBudgets(data.budgets as Budget[]);
             state?.setTotalSpent(
-              calculateCurrentSpend(data.budgets, data.transactions)
+              data.budgets.reduce(
+                (acc: any, budget: any) => acc + budget.currentSpend,
+                0
+              )
             );
             state?.setTotalBudget(
               data.budgets.reduce(

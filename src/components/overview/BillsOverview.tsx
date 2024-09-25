@@ -21,15 +21,15 @@ const BillsOverview = ({}: Props) => {
       linkText="See Details"
     >
       <div className="space-y-5">
-        <p className="bg-beige-100 border-l-4 border-green rounded-lg p-5 py-6 text-gray-500 flex justify-between">
+        <p className="bg-beige-100 border-l-4 border-green rounded-lg p-5 text-sm py4 text-gray-500 flex justify-between">
           Paid Bills
           <span className="font-bold text-gray-900">${paidBills}</span>
         </p>
-        <p className="bg-beige-100 border-l-4 border-yellow rounded-lg p-5 py-6 text-gray-500 flex justify-between">
-          Total Upcomong
+        <p className="bg-beige-100 border-l-4 border-yellow rounded-lg p-5 text-sm py-4 text-gray-500 flex justify-between">
+          Total Upcoming
           <span className="font-bold text-gray-900"> ${upcoming}</span>
         </p>
-        <p className="bg-beige-100 border-l-4 border-cyan rounded-lg p-5 py-6 text-gray-500 flex justify-between">
+        <p className="bg-beige-100 border-l-4 border-cyan rounded-lg p-5 text-sm py-4 text-gray-500 flex justify-between">
           Due Soon
           <span className="font-bold text-gray-900">${dueSoon}</span>
         </p>

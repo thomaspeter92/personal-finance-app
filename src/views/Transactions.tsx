@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import useTransactionsStore from "../stores/transactionsStore";
 import { formatDateString } from "../util/helpers";
 import Button from "../components/ui/Button";
-import Input from "../components/ui/Input";
-import Select from "../components/ui/Select";
+// import Input from "../components/ui/Input";
+
+// TODO: ADD SORTING AND FILTERING FUNCTIONS
 
 const Transactions = () => {
   const { transactions } = useTransactionsStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [slicedTransactions, setSlicedTransactions] = useState(
-    transactions.slice(0, 10)
+    transactions.slice(0, 7)
   );
 
   const handleNextPageChange = () => {
-    if (currentPage < Math.ceil(transactions.length / 10)) {
+    if (currentPage < Math.ceil(transactions.length / 7)) {
       setCurrentPage((page) => page + 1);
     }
   };
@@ -26,22 +27,34 @@ const Transactions = () => {
 
   useEffect(() => {
     // const totalPages = Math.ceil(transactions.length / 10);
-    const sliced = transactions.slice((currentPage - 1) * 10, currentPage * 10);
+    const sliced = transactions.slice((currentPage - 1) * 7, currentPage * 7);
     setSlicedTransactions(sliced);
   }, [currentPage]);
-
-  // const handleSearch = () => {
-
-  // }
 
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">Transactions</h1>
       <div className="bg-white rounded-xl p-8">
-        <div className="flex items-center mb-5">
-          {/* <Input icon="search" placeholder="Search transactions..." /> */}
-          <Select />
-        </div>
+        {/* <div className="flex items-center mb-8 justify-end"> */}
+        {/* <div className="flex items-center gap-3">
+            <label htmlFor="sortSelect" className="text-gray-500">
+              Sort by:{" "}
+            </label>
+            <Select
+              id="sortSelect"
+              onChange={() => null}
+              defaultValue="latest"
+              options={[
+                { value: "latest", label: "Latest" },
+                { value: "oldest", label: "Oldest" },
+                { value: "highest", label: "Highest" },
+                { value: "lowest", label: "Lowest" },
+                { value: "a-z", label: "A to Z" },
+                { value: "z-a", label: "Z - A" },
+              ]}
+            />
+          </div>
+        </div> */}
         <table className=" w-full">
           <thead className="hidden lg:table-header-group">
             <tr className="[&>td]:pb-5 border-b border-gray-100 text-sm text-gray-500">
@@ -55,7 +68,7 @@ const Transactions = () => {
             {slicedTransactions.map((t, i) => (
               <tr
                 key={t.date}
-                className="[&>td]:py-5 [&:not(:last-child)]:border-b"
+                className="[&>td]:py-5 [&:not(:last-child)]:border-b text-sm"
               >
                 <td className="flex gap-5 items-center font-bold text-gray-900">
                   <img src={t.avatar} className="w-10 h-10 rounded-full" />
@@ -97,7 +110,7 @@ const Transactions = () => {
             Prev
           </Button>
           <div className="flex gap-2">
-            {[...Array(Math.ceil(transactions.length / 10)).keys()].map((d) => (
+            {[...Array(Math.ceil(transactions.length / 7)).keys()].map((d) => (
               <Button
                 onClick={() => setCurrentPage(d + 1)}
                 intent={currentPage === d + 1 ? "black" : "black-outlined"}
