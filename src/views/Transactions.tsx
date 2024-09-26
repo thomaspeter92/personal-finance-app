@@ -109,7 +109,7 @@ const Transactions = () => {
           >
             Prev
           </Button>
-          <div className="flex gap-2">
+          <div className="gap-2 hidden lg:flex">
             {[...Array(Math.ceil(transactions.length / 7)).keys()].map((d) => (
               <Button
                 onClick={() => setCurrentPage(d + 1)}

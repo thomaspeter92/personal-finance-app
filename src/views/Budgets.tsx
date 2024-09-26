@@ -104,35 +104,38 @@ const Budgets = ({}: Props) => {
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">Budgets</h1>
-      <div className="grid grid-cols-2 gap-5">
-        <div className="rounded-lg bg-white p-5">
+      <div className="grid lg:grid-cols-2 gap-5 items-start">
+        <div className="rounded-lg bg-white p-5 lg:sticky top-5 gap-5 flex flex-col sm:flex-row  lg:flex-col items-center">
           <BudgetChart />
-          <h2 className="font-bold text-lg my-5">Spending Summary</h2>
-          <div className="space-y-3 text-sm">
-            {budgets.map((b, i) => (
-              <div
-                className={`flex gap-3 text-gray-500 pb-3 items-center [&:not(:last-child)]:border-b`}
-              >
-                <span
-                  className={`w-1 h-6 rounded-full `}
-                  style={{ background: b.theme }}
-                />
-                <span className="flex-1">{b.category}</span>
-                <p>
+
+          <div className="w-full flex-1">
+            <h2 className="font-bold text-lg mb-5">Spending Summary</h2>
+            <div className="space-y-3 text-sm">
+              {budgets.map((b, i) => (
+                <div
+                  className={`flex gap-3 text-gray-500 pb-3 items-center [&:not(:last-child)]:border-b`}
+                >
                   <span
-                    className={`font-bold text-gray-900 ${
-                      b.currentSpend > b.maximum ? "text-red" : ""
-                    }`}
-                  >
-                    ${b.currentSpend}
-                  </span>
-                  <span className="text-gray-500 text-sm">
-                    {" "}
-                    of ${b.maximum}
-                  </span>
-                </p>
-              </div>
-            ))}
+                    className={`w-1 h-6 rounded-full `}
+                    style={{ background: b.theme }}
+                  />
+                  <span className="flex-1">{b.category}</span>
+                  <p>
+                    <span
+                      className={`font-bold text-gray-900 ${
+                        b.currentSpend > b.maximum ? "text-red" : ""
+                      }`}
+                    >
+                      ${b.currentSpend}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                      {" "}
+                      of ${b.maximum}
+                    </span>
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="space-y-5">

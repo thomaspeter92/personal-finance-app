@@ -1,14 +1,18 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { Icons } from "./Icons";
 
-const styles = cva("px-5 py-3 rounded-lg border flex items-center gap-2", {
-  variants: {
-    intent: {
-      black: "bg-gray-900 text-gray-100 border-gray-900",
-      "black-outlined": "border-gray-900 ",
+const styles = cva(
+  "px-5 py-3 rounded-lg border flex items-center justify-center gap-2 text-sm font-semibold whitespace-nowrap",
+  {
+    variants: {
+      intent: {
+        black: "bg-gray-900 text-gray-100 border-gray-900",
+        "black-outlined": "border-gray-900 ",
+        beige: "bg-beige-100 text-gray-900",
+      },
     },
-  },
-});
+  }
+);
 
 type Props = {
   children: React.ReactNode;
