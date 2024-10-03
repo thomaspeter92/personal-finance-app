@@ -2,13 +2,14 @@ import { cva, VariantProps } from "class-variance-authority";
 import { Icons } from "./Icons";
 
 const styles = cva(
-  "px-5 py-3 rounded-lg border flex items-center justify-center gap-2 text-sm font-semibold whitespace-nowrap",
+  "px-5 py-3 rounded-lg border flex items-center justify-center gap-2 text-sm font-semibold whitespace-nowrap transition",
   {
     variants: {
       intent: {
         black: "bg-gray-900 text-gray-100 border-gray-900",
         "black-outlined": "border-gray-900 ",
-        beige: "bg-beige-100 text-gray-900",
+        beige:
+          "bg-beige-100 text-gray-900 hover:bg-gray-900 hover:text-beige-100",
       },
     },
   }

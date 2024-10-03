@@ -5,6 +5,9 @@ import useTransactionsStore, { Transaction } from "../stores/transactionsStore";
 import { formatDateString } from "../util/helpers";
 import { Icons } from "../components/ui/Icons";
 import { Link } from "react-router-dom";
+import Button from "../components/ui/Button";
+import { useModal } from "../hooks/useModal";
+import Modal from "../components/ui/Modal";
 
 type Props = {};
 
@@ -88,6 +91,7 @@ const BudgetBox = ({
 const Budgets = ({}: Props) => {
   const { budgets } = useBudgetsStore();
   const { transactions } = useTransactionsStore();
+  const { open, toggleModal } = useModal();
 
   const latestSpending: Record<string, Transaction[]> = {};
   budgets.forEach((budget) => {
@@ -99,11 +103,14 @@ const Budgets = ({}: Props) => {
     }
   });
 
-  console.log(latestSpending);
-
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold">Budgets</h1>
+      <h1 className="text-2xl font-bold flex justify-between items-center">
+        Budgets
+        <Button onClick={toggleModal} intent="black">
+          Add New Budget
+        </Button>
+      </h1>
       <div className="grid lg:grid-cols-2 gap-5 items-start">
         <div className="rounded-lg bg-white p-5 lg:sticky top-5 gap-5 flex flex-col sm:flex-row  lg:flex-col items-center">
           <BudgetChart />
@@ -150,6 +157,7 @@ const Budgets = ({}: Props) => {
           ))}
         </div>
       </div>
+      <Modal open={open} toggleOpen={toggleModal}></Modal>
     </div>
   );
 };

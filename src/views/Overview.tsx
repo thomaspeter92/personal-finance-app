@@ -10,7 +10,7 @@ const Overview = ({}: Props) => {
   return (
     <div className="space-y-5">
       <h1 className="text-2xl font-bold">Overview</h1>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-3 gap-5">
         <Card title="Current Balance" value="$5,500" />
         <Card title="Income" value="$4,000" />
         <Card title="expenses" value="$1,200" />

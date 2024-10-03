@@ -26,13 +26,6 @@ const useBillsStore = create<BillsState>()(
     (set) => ({
       bills: [],
       setBills: (bills: Bills) => set({ bills }),
-      // updateBill: (id: number, updatedBill: Partial<Bill>) =>
-      //   set((state) => ({
-      //     // Find the pot with matching ID and update it, otherwise skip
-      //     bills: state.bills.map((pot) =>
-      //       pot.id === id ? { ...pot, ...updatedPot } : pot
-      //     ),
-      //   })),
     }),
     {
       name: "bills-storage", // name in local storage

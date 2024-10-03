@@ -47,3 +47,8 @@ export const getDueSoonBills = (bills: Bills): number => {
 
   return Math.abs(Number(total.toFixed(2)));
 };
+export function getOrdinal(n: number) {
+  let s = ["th", "st", "nd", "rd"];
+  let v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
