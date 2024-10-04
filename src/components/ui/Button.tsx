@@ -21,6 +21,7 @@ type Props = {
   iconRight?: keyof typeof Icons;
   onClick?: () => void;
   type?: "button" | "submit";
+  className: string;
 };
 
 const Button = ({
@@ -29,6 +30,7 @@ const Button = ({
   iconLeft,
   iconRight,
   onClick,
+  className,
 }: Props & VariantProps<typeof styles>) => {
   let IconLeft, IconRight;
   if (iconLeft) {
@@ -38,7 +40,7 @@ const Button = ({
   }
 
   return (
-    <button onClick={onClick} className={styles({ intent })}>
+    <button onClick={onClick} className={`${styles({ intent })} ${className}`}>
       {IconLeft ? <IconLeft /> : null}
       {children}
       {IconRight ? <IconRight /> : null}

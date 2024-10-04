@@ -8,6 +8,13 @@
     url(./assets/fonts/PublicSans-VariableFont_wght.ttf) format("truetype");
 }
 
+.selectTriggerWidth {
+  width: var(--radix-select-trigger-width);
+}
+.selectContentHeight {
+  max-height: var(--radix-select-content-available-height);
+}
+
 :root {
   font-family: PublicSans, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -28,6 +28,8 @@ type TransactionsState = {
   sortTransactions: (
     sortBy: "latest" | "oldest" | "highest" | "lowest"
   ) => void;
+  transactionCategories: Categorgy[];
+  setTransactionCategories: (categories: Categorgy[]) => void;
 };
 
 const fetchTransactions = async () => {
@@ -40,7 +42,10 @@ const useTransactionsStore = create<TransactionsState>()(
   persist(
     (set, get) => ({
       transactions: [],
+      transactionCategories: [],
       setTransactions: (transactions) => set({ transactions }),
+      setTransactionCategories: (categories) =>
+        set({ transactionCategories: categories }),
       sortTransactions: (sortBy) => {
         const sortedTransactions = [...get().transactions].sort((a, b) => {
           switch (sortBy) {
@@ -66,6 +71,12 @@ const useTransactionsStore = create<TransactionsState>()(
           (async () => {
             let data = await fetchTransactions();
             state?.setTransactions(data.transactions as Transaction[]);
+            const categories: Categorgy[] = [
+              ...new Set<Categorgy>(
+                data.transactions.map((item: Transaction) => item.category)
+              ),
+            ];
+            state?.setTransactionCategories(categories);
           })();
         }
       },

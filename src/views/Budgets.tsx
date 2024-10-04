@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import { useModal } from "../hooks/useModal";
 import Modal from "../components/ui/Modal";
+import SelectElement from "../components/ui/Select";
+import Input from "../components/ui/Input";
 
 type Props = {};
 
@@ -90,8 +92,10 @@ const BudgetBox = ({
 
 const Budgets = ({}: Props) => {
   const { budgets } = useBudgetsStore();
-  const { transactions } = useTransactionsStore();
+  const { transactions, transactionCategories } = useTransactionsStore();
   const { open, toggleModal } = useModal();
+
+  console.log(transactionCategories);
 
   const latestSpending: Record<string, Transaction[]> = {};
   budgets.forEach((budget) => {
@@ -157,7 +161,24 @@ const Budgets = ({}: Props) => {
           ))}
         </div>
       </div>
-      <Modal open={open} toggleOpen={toggleModal}></Modal>
+      <Modal title="Add New Budget" open={open} toggleOpen={toggleModal}>
+        <form className="space-y-3">
+          <p className="text-gray-500 text-sm">
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
+          </p>
+
+          <SelectElement
+            label="Budget Category"
+            placeholder="Select a category"
+            options={transactionCategories.map((x) => ({ value: x, label: x }))}
+          />
+          <Input type="number" label="Maximum Spend" placeholder="e.g. $200" />
+          <Button className="w-full" intent="black">
+            Add Budget
+          </Button>
+        </form>
+      </Modal>
     </div>
   );
 };

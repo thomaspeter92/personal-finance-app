@@ -1,85 +1,82 @@
-import * as SelectUI from "@radix-ui/react-select";
+import * as Select from "@radix-ui/react-select";
+import React from "react";
 import { Icons } from "./Icons";
-import { useState } from "react";
-import { useEffect } from "react";
 
-type Option = {
+type SelectItemProps = {
+  children: React.ReactNode;
+  className?: string;
   value: string;
-  label: string;
 };
-
-type Props = {
-  options: Option[];
-  onChange: (sele: Option) => void;
-  id: string;
-  defaultValue?: string;
-};
-
-const Select = ({ options = [], onChange, id, defaultValue }: Props) => {
-  const DownIcon = Icons["caretRight"];
-  const initialDefaultValue =
-    defaultValue || (options.length > 0 ? options[0].value : "");
-  const [value, setValue] = useState(options[0].value);
-
-  useEffect(() => {
-    // Trigger the onChange handler with the initial default value
-    const selectedOption = options.find(
-      (option) => option.value === initialDefaultValue
-    );
-    if (selectedOption) {
-      onChange(selectedOption);
-    }
-  }, [initialDefaultValue, onChange, options]);
-
-  const handleChange = (selectedValue: string) => {
-    const selectedOption = options.find(
-      (option) => option.value === selectedValue
-    );
-    if (selectedOption) {
-      setValue(selectedValue);
-      onChange(selectedOption);
-    }
-  };
-
-  return (
-    <SelectUI.Root defaultValue={options[0].value} onValueChange={handleChange}>
-      <SelectUI.Trigger
-        id={id}
-        className="SelectUITrigger rounded-lg border border-beige-500 px-4 py-2 flex items-center gap-3 w-fit"
+const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
+  ({ children, className, value, ...props }, forwardedRef) => {
+    return (
+      <Select.Item
+        className={
+          "cursor-pointer text-xs pt-3 text-gray-500 hover:text-gray-900 hover:font-semibold transition"
+        }
+        {...props}
+        ref={forwardedRef}
+        value={value}
       >
-        <SelectUI.Value
-          aria-label="values"
-          placeholder="Pick an option"
-          className="text-sm"
-        >
-          {value}
-        </SelectUI.Value>
+        <Select.ItemText>{children}</Select.ItemText>
+        <Select.ItemIndicator className="SelectItemIndicator">
+          {/* <CheckIcon /> */}
+        </Select.ItemIndicator>
+      </Select.Item>
+    );
+  }
+);
 
-        <SelectUI.Icon>
-          <DownIcon className="rotate-90" />
-        </SelectUI.Icon>
-      </SelectUI.Trigger>
-      <SelectUI.Portal>
-        <SelectUI.Content
-          className="bg-white shadow w-[20ch] rounded-lg border border-beige-500"
-          position="popper"
-          sideOffset={5}
-        >
-          <SelectUI.Viewport className="w-full">
-            {options.map((d, i) => (
-              <SelectUI.Item
-                className="py-2 px-1 outline-none "
-                key={d.value + i}
-                value={d.value}
-              >
-                {d.label}
-              </SelectUI.Item>
-            ))}
-          </SelectUI.Viewport>
-        </SelectUI.Content>
-      </SelectUI.Portal>
-    </SelectUI.Root>
+type SelectProps = {
+  placeholder: string;
+  options: { value: string; label: string }[];
+  onChange: (val: string) => void;
+  label?: string;
+};
+
+const SelectElement = ({
+  placeholder,
+  options,
+  onChange,
+  label,
+}: SelectProps) => {
+  const ChevronDownIcon = Icons["caretRight"];
+  return (
+    <div>
+      {label ? (
+        <label className="font-bold text-xs text-gray-600 mb-1 block">
+          {label}
+        </label>
+      ) : null}
+      <Select.Root onValueChange={onChange}>
+        <Select.Trigger className="w-full border border-gray-500 flex justify-between items-center py-3 rounded-lg bg-white px-[15px] text-[13px]">
+          <Select.Value placeholder={placeholder} />
+          <Select.Icon>
+            <ChevronDownIcon className="rotate-90" />
+          </Select.Icon>
+        </Select.Trigger>
+        <Select.Portal>
+          <Select.Content
+            sideOffset={0}
+            position="popper"
+            className=" selectTriggerWidth mt-2 px-3 pb-3 shadow-md w-full rounded-md bg-white"
+          >
+            <Select.ScrollUpButton className="flex h-[25px] cursor-default items-center justify-center bg-white ">
+              {/* <ChevronUpIcon /> */}
+            </Select.ScrollUpButton>
+            <Select.Viewport className="w-full divide-y space-y-3">
+              {options.map((d, i) => (
+                <SelectItem value={d.value}>{d.label}</SelectItem>
+              ))}
+            </Select.Viewport>
+            <Select.ScrollDownButton className="SelectScrollButton">
+              {/* <ChevronDownIcon /> */}
+            </Select.ScrollDownButton>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
+    </div>
   );
 };
 
-export default Select;
+export default SelectElement;

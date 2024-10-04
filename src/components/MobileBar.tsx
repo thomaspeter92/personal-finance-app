@@ -7,7 +7,7 @@ type Props = {};
 
 const MobileBar = (props: Props) => {
   return (
-    <div className="p-3 z-50 bg-gray-900 fixed bottom-0 w-screen rounded-t-xl md:hidden">
+    <div className="p-3 z-50 bg-gray-900 fixed bottom-0 w-screen rounded-t-xl lg:hidden">
       <nav className="flex justify-between items-center w-full">
         {Object.keys(menu).map((d, i) => {
           const Icon = Icons[menu[d].icon as keyof typeof Icons];

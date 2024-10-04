@@ -20,7 +20,7 @@ function App() {
           <Route path="/pots" element={<Pots />}></Route>
           <Route path="/transactions" element={<Transactions />}></Route>
         </Routes>
-        <div className="h-20 w-full md:hidden"></div>
+        <div className="h-20 w-full lg:hidden"></div>
       </main>
     </div>
   );
