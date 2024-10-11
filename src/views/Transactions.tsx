@@ -67,7 +67,7 @@ const Transactions = () => {
           <tbody>
             {slicedTransactions.map((t, i) => (
               <tr
-                key={t.date}
+                key={t.date + i}
                 className="[&>td]:py-5 [&:not(:last-child)]:border-b text-sm"
               >
                 <td className="flex gap-5 items-center font-bold text-gray-900">

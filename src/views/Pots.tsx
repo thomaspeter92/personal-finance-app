@@ -1,10 +1,7 @@
-import React from "react";
 import usePotsStore from "../stores/potsStore";
 import Button from "../components/ui/Button";
 
-type Props = {};
-
-const Pots = (props: Props) => {
+const Pots = () => {
   const { pots } = usePotsStore();
 
   return (
@@ -14,7 +11,7 @@ const Pots = (props: Props) => {
         {pots.map((d, i) => {
           const percentage = (d.total / d.target) * 100;
           return (
-            <div className="p-5 bg-white rounded-lg space-y-4">
+            <div key={d.name + i} className="p-5 bg-white rounded-lg space-y-4">
               <h2 className="font-bold flex items-center gap-3">
                 <div
                   className="w-4 h-4 rounded-full"

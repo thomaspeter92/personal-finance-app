@@ -21,7 +21,7 @@ type Props = {
   iconRight?: keyof typeof Icons;
   onClick?: () => void;
   type?: "button" | "submit";
-  className: string;
+  className?: string;
 };
 
 const Button = ({

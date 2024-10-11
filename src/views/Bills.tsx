@@ -1,4 +1,3 @@
-import React from "react";
 import { Icons } from "../components/ui/Icons";
 import useBillsStore from "../stores/billsStore";
 import {
@@ -8,9 +7,7 @@ import {
   getOrdinal,
 } from "../util/helpers";
 
-type Props = {};
-
-const Bills = (props: Props) => {
+const Bills = () => {
   const { bills } = useBillsStore();
   const upcoming = getUpcomingBills(bills);
   const dueSoon = getDueSoonBills(bills);
@@ -61,7 +58,7 @@ const Bills = (props: Props) => {
             </thead>
             <tbody>
               {bills?.map((x, i) => (
-                <tr className="[&>td]:py-2  text-sm">
+                <tr key={x.name + i} className="[&>td]:py-2  text-sm">
                   <td className="flex items-center gap-2">
                     <img src={x.avatar} className="w-7 h-7 rounded-full" />
                     <p className="font-semibold ">

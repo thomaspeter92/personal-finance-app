@@ -1,6 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useModal } from "../../hooks/useModal";
 import { Icons } from "./Icons";
 
 type Props = {

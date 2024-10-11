@@ -30,7 +30,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
 type SelectProps = {
   placeholder: string;
   options: { value: string; label: string }[];
-  onChange: (val: string) => void;
+  onChange?: (val: string) => void;
   label?: string;
 };
 
@@ -66,7 +66,9 @@ const SelectElement = ({
             </Select.ScrollUpButton>
             <Select.Viewport className="w-full divide-y space-y-3">
               {options.map((d, i) => (
-                <SelectItem value={d.value}>{d.label}</SelectItem>
+                <SelectItem key={d.value + i} value={d.value}>
+                  {d.label}
+                </SelectItem>
               ))}
             </Select.Viewport>
             <Select.ScrollDownButton className="SelectScrollButton">

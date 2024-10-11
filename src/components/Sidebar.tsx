@@ -3,9 +3,7 @@ import { images } from "../util/images";
 import { menu } from "../util/menu";
 import { Icons } from "./ui/Icons";
 
-type Props = {};
-
-const Sidebar = (props: Props) => {
+const Sidebar = () => {
   return (
     <div className="min-w-[280px] relative hidden lg:block">
       <aside className="fixed min-w-[280px] left-0 top-0 py-10 pr-10 bg-gray-900 h-screen rounded-r-xl text-gray-300">

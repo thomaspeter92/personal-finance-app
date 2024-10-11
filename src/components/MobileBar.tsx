@@ -1,11 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { menu } from "../util/menu";
 import { Icons } from "./ui/Icons";
 
-type Props = {};
-
-const MobileBar = (props: Props) => {
+const MobileBar = () => {
   return (
     <div className="p-3 z-50 bg-gray-900 fixed bottom-0 w-screen rounded-t-xl lg:hidden">
       <nav className="flex justify-between items-center w-full">

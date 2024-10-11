@@ -23,7 +23,6 @@ const PotsOverview = ({}: Props) => {
         </div>
         <div className="grid grid-cols-2 gap-4 ">
           {pots.slice(0, 4).map((pot, i) => {
-            let color = pot.theme;
             return (
               <div
                 key={pot.name + i}

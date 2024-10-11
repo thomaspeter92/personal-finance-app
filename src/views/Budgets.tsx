@@ -1,4 +1,3 @@
-import React from "react";
 import useBudgetsStore from "../stores/budgetsStore";
 import BudgetChart from "../components/ui/BudgetChart";
 import useTransactionsStore, { Transaction } from "../stores/transactionsStore";
@@ -72,7 +71,10 @@ const BudgetBox = ({
           </Link>
         </p>
         {latestSpending.slice(0, 3).map((d, i) => (
-          <div className="flex gap-3 items-center text-xs [&:not(:last-child)]:border-b border-gray-300/25 pb-3">
+          <div
+            key={d.name + i}
+            className="flex gap-3 items-center text-xs [&:not(:last-child)]:border-b border-gray-300/25 pb-3"
+          >
             <img src={d.avatar} alt="avatar" className="w-8 h-8 rounded-full" />
             <p className="font-bold flex-1">{d.name}</p>
             <p className="text-right text-[11px] font-bold">
@@ -124,6 +126,7 @@ const Budgets = ({}: Props) => {
             <div className="space-y-3 text-sm">
               {budgets.map((b, i) => (
                 <div
+                  key={b.category + i}
                   className={`flex gap-3 text-gray-500 pb-3 items-center [&:not(:last-child)]:border-b`}
                 >
                   <span
@@ -152,6 +155,7 @@ const Budgets = ({}: Props) => {
         <div className="space-y-5">
           {budgets.map((b, i) => (
             <BudgetBox
+              key={b.category + i}
               title={b.category}
               theme={b.theme}
               maximum={b.maximum}
